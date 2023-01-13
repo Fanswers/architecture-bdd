@@ -32,7 +32,6 @@ def scrap_artists_concerts():
     status = 0
 
     artists_urls = artists_urls_to_dict()
-
     for artist in artists_urls:
         page = requests.get(artists_urls[artist])
         soup = BeautifulSoup(page.text, 'html.parser')
