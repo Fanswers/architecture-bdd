@@ -3,7 +3,6 @@ import json
 
 
 def get_database():
-
     # Provide the mongodb atlas url to connect python to mongodb using pymongo
     client = pymongo.MongoClient("mongodb+srv://Admin:Admin@architecture-bdd.hgcnpfm.mongodb.net/?retryWrites=true&w=majority")
     return client
