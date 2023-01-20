@@ -38,9 +38,21 @@ class Artists(Resource):
         args = post_args.parse_args()
         collection = get_collection()
 
-        mydict = {"_id": args['artist_id'], "spotify_id": args['spotify_id'], "popularity": args['popularity']}
+        collection.insert_one({"_id": args['artist_id'], "spotify_id": args['spotify_id'], "popularity": args['popularity']})
 
-        collection.insert_one(mydict)
+    # Update One
+    def put(self):
+        args = post_args.parse_args()
+        collection = get_collection()
+
+        collection.update_one({"_id": args['artist_id']}, {"$set": {"popularity": args['popularity']}})
+
+    # Delete One
+    def delete(self):
+        args = post_args.parse_args()
+        collection = get_collection()
+
+        collection.delete_one({"_id": args['artist_id']})
 
 
 # Artist by name
