@@ -9,11 +9,11 @@ api = Api(app)
 
 # Allow us to get json argument from method
 post_args = reqparse.RequestParser()
-post_args.add_argument("artist_id")
-post_args.add_argument("concerts")
-post_args.add_argument("spotify_id")
-post_args.add_argument("followers")
-post_args.add_argument("popularity")
+post_args.add_argument("artist_id", type=str)
+post_args.add_argument("concerts", type=dict)
+post_args.add_argument("spotify_id", type=str)
+post_args.add_argument("followers", type=dict)
+post_args.add_argument("popularity", type=int)
 
 
 def get_collection():
@@ -39,13 +39,6 @@ class Artists(Resource):
         collection = get_collection()
 
         collection.insert_one({"_id": args['artist_id'], "spotify_id": args['spotify_id'], "popularity": args['popularity']})
-
-    # Update One
-    def put(self):
-        args = post_args.parse_args()
-        collection = get_collection()
-
-        collection.update_one({"_id": args['artist_id']}, {"$set": {"popularity": args['popularity']}})
 
     # Delete One
     def delete(self):
@@ -86,6 +79,24 @@ class ArtistConcert(Resource):
         concert = cursor[0]["concerts"][concert_date]
 
         return concert
+
+    # Create One
+    def post(self, artist_name, concert_date):
+        args = post_args.parse_args()
+        collection = get_collection()
+
+        collection.update_one({"_id": artist_name}, {"$set": {f"concerts.{concert_date}": args["concerts"][concert_date]}})
+
+    # def delete(self, artist_name, concert_date):
+    #     args = post_args.parse_args()
+    #     collection = get_collection()
+    #
+    #     collection.updateMany(
+    #         {"_id": artist_name},
+    #         { "$pull": {f"concerts": {"$gte": concert_date}}}
+    #     )
+
+        #collection.update_one({"_id": artist_name}, {"$unset": {f"concerts.{concert_date}": {}}})
 
 
 api.add_resource(Artists, '/')
