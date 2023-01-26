@@ -10,8 +10,8 @@ def get_database():
 
 
 def split_json(json_dict):
-
     documents = []
+
     for key in json_dict:
         temporary_dict = json_dict[key]
         temporary_dict["_id"] = key
