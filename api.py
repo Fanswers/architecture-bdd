@@ -24,6 +24,7 @@ def get_collection():
 
     return collection
 
+
 # All artists
 class Artists(Resource):
     def get(self):
@@ -39,7 +40,7 @@ class Artists(Resource):
         args = post_args.parse_args()
         collection = get_collection()
 
-        collection.insert_one({"_id": args['_id'], "spotify_id": args['spotify_id'], "popularity": args['popularity']})
+        collection.insert_one({"_id": args['_id']})
 
     # Update One
     def put(self):
