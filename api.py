@@ -40,7 +40,7 @@ class Artists(Resource):
         args = post_args.parse_args()
         collection = get_collection()
 
-        collection.insert_one({"_id": args['_id']})
+        collection.insert_one({"_id": args['_id'], "spotify_id": args["spotify_id"], "followers": args["followers"], "popularity": args["popularity"]})
 
     # Update One
     def put(self):
@@ -55,7 +55,7 @@ class Artists(Resource):
         if args["popularity"] == 0:
             args["popularity"] = actual_values["popularity"]
 
-        collection.update_one({"_id": args['_id']}, {"$set": {"_id": args["_id"], "spotify_id": args["spotify_id"], "popularity": args["popularity"]}})
+        collection.update_one({"_id": args['_id']}, {"$set": {"_id": args["new_id"], "spotify_id": args["spotify_id"], "popularity": args["popularity"]}})
 
     # Delete One
     def delete(self):
