@@ -14,7 +14,7 @@ RUN apt-get update \
 EXPOSE 80
 
 # Install dependencies
-COPY requirements.txt .
+COPY docker/streamlit/requirements.txt .
 RUN pip install -r requirements.txt
 
 ENV PYTHONUNBUFFERED 1
