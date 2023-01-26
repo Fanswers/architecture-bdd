@@ -24,6 +24,7 @@ def get_collection():
 
     return collection
 
+
 # All artists
 class Artists(Resource):
     def get(self):
