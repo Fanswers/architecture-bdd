@@ -88,5 +88,5 @@ def save_artists_concerts_json(artists_concerts_dict):
     :param artists_concerts_dict: Dictionary of all concerts of all artists
     """
 
-    with open("../data/artists_concerts.json", "w") as outfile:
+    with open("./data/artists_concerts.json", "w") as outfile:
         json.dump(artists_concerts_dict, outfile)

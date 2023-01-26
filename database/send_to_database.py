@@ -33,7 +33,7 @@ def update_database(client):
     db = client['MusicProj']
     collection = db["Artists"]
 
-    with open('../data/artists_concerts.json') as file:
+    with open('./data/artists_concerts.json') as file:
         file_data = json.load(file)
     documents = split_json(file_data)
 
