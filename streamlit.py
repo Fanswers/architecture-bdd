@@ -10,7 +10,7 @@ from src.spotify_api import set_artist_info
 
 st.set_page_config(page_title="Spotify top 50 / Concerts France", page_icon="🎼", layout="wide")
 
-adresse_ip = "http://192.168.1.35:5000/"
+adresse_ip = "http://127.0.0.1:5000/"
 
 with st.sidebar.form(key = "form1"):
     home_button = st.form_submit_button("Home")

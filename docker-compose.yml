@@ -17,7 +17,7 @@ services:
   streamlit-interface:
     build:
       context: .
-      dockerfile: ./docker/scraper/Dockerfile
+      dockerfile: ./docker/streamlit/Dockerfile
     volumes:
       - .:/code
   ofelia-scheduler:
