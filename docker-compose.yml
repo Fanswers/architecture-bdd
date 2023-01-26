@@ -1,0 +1,31 @@
+version: '3'
+services:
+  flask-api:
+    build:
+      context: .
+      dockerfile: ./docker/flask/Dockerfile
+    ports:
+     - "5000:5000"
+    volumes:
+     - .:/code
+  scraper:
+    build:
+      context: .
+      dockerfile: ./docker/scraper/Dockerfile
+    volumes:
+      - .:/code
+  #streamlit-interface:
+  #  build:
+  #    context: .
+  #    dockerfile: ./docker/streamlit/Dockerfile
+  #  volumes:
+  #    - .:/code
+  ofelia-scheduler:
+    image: mcuadros/ofelia:latest
+    command: daemon --docker
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    labels:
+      ofelia.enabled: "true"
+      ofelia.job-run.app.schedule: "@every 24h"
+      ofelia.job-run.app.container: "architecture-bdd-scraper-1"
