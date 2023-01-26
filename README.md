@@ -1,6 +1,3 @@
-# architecture-bdd
-Projet cours achitecture BDD
-
 # Présentation du projet
 
 Ce projet consiste à vérifier une correlation entre les concerts réalisés en France par certains artistes et leur popularité spotify.
@@ -30,9 +27,15 @@ API : http://127.0.0.1:5000/ <br>
 
 Si les liens ne fonctionnent pas, aller voir dans les logs de Docker sur les conteneurs associés pour récuperer l'ip de l'api et modifier votre ip dans la ligne 13 du streamlit.py
 
-Ouvrir un terminal à la racine du projet et executer la commande 
-Sinon :
+Ouvrir un terminal à la racine du projet et executer la commande suivante:
 ````text 
 streamlit run streamlit.py
 ````
 Récuperer le lien fournit pour se connecter au streamlit
+
+## Conclusion
+
+Nous n'avons pas trouvé de corrélation entre les concerts qu'un artiste réalise et un gain de popularité conséquent après ce ce concert.<br>
+Il y a deux raisons possibles à cette conclusion.
+Les données que nous avons récupérées ne sont pas assez étalées dans le temps (seulement 1 semaine).
+La deuxième raison est qu'il y a de fortes chances que les personnes allant voir des artistes en concert, soient déjà abonnées à ceux-ci.
