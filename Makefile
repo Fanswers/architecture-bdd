@@ -4,14 +4,20 @@
 
 ### DOCKER TASKS ###
 
-compose: # Build image + containers + run
+compose: # Build images, create containers and run containers
 	docker-compose up -d
 
-delete: # Delete container and image
-	docker stop "architecture-bdd-ofelia-scheduler"
+stop: # Stop containers
+	docker stop "architecture-bdd-ofelia-scheduler-1"
 	docker stop "architecture-bdd-flask-api-1"
+
+rm-containers: # Delete containers
 	docker rm "architecture-bdd-flask-api-1"
 	docker rm "architecture-bdd-scraper-1"
+	docker rm "architecture-bdd-streamlit-interface-1"
 	docker rm "architecture-bdd-ofelia-scheduler-1"
+
+rm-images: # Delete images
 	docker image rm architecture-bdd-flask_api
 	docker image rm architecture-bdd-scraper
+	docker image rm architecture-bdd-streamlit-interface

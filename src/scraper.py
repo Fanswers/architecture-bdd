@@ -55,7 +55,7 @@ def scrap_artists_concerts():
 
         # Scraping status
         status += 1
-        print(f"{(status/len(artists_urls))*100}%")
+        print(f"scraping {(status/len(artists_urls))*100}% done")
 
     return all_concerts
 
