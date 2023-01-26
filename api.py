@@ -38,7 +38,7 @@ class Artists(Resource):
         args = post_args.parse_args()
         collection = get_collection()
 
-        collection.insert_one({"_id": args['artist_id'], "spotify_id": args['spotify_id'], "popularity": args['popularity']})
+        collection.insert_one({"_id": args['artist_id']})
 
     # Delete One
     def delete(self):
