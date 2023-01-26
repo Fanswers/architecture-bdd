@@ -1,8 +1,8 @@
 from scraper import scrap_artists_concerts, save_artists_concerts_json
 from spotify_api import get_token, get_spotify_info
-from database.send_to_database import get_database, insert_json
+from database.send_to_database import get_database, insert_json, update_database
 
-
+# 13/01/2023 3749329
 if __name__ == "__main__":
     # Scrap concert site
     artists_concerts_dict = scrap_artists_concerts()
@@ -16,5 +16,9 @@ if __name__ == "__main__":
 
     # Create a connexion to our database and send the json file
     client = get_database()
-    insert_json(client)
 
+    # Init database
+    # insert_json(client)
+
+    # Update database
+    update_database(client)
