@@ -14,13 +14,12 @@ services:
       dockerfile: ./docker/scraper/Dockerfile
     volumes:
       - .:/code
-#  ofelia-scheduler:
-#    image: mcuadros/ofelia:latest
-#    command: daemon --docker
-#    volumes:
-#      - /var/run/docker.sock:/var/run/docker.sock:ro
-#    labels:
-#      ofelia.job-exec.spark-script.container: "architecture-bdd-scraper-1"
-#      ofelia.job-exec.spark-script.schedule: "@every 5m"
-#      ofelia.job-exec.spark-script.command: "python ./main.py"
-#      ofelia.job-exec.spark-script.option: "no-overlap"
+  ofelia-scheduler:
+    image: mcuadros/ofelia:latest
+    command: daemon --docker
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    labels:
+      ofelia.enabled: "true"
+      ofelia.job-run.app.schedule: "@every 24h"
+      ofelia.job-run.app.container: "architecture-bdd-scraper-1"
