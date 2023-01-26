@@ -14,6 +14,12 @@ services:
       dockerfile: ./docker/scraper/Dockerfile
     volumes:
       - .:/code
+#  streamlit-interface:
+#    build:
+#      context: .
+#      dockerfile: ./docker/scraper/Dockerfile
+#    volumes:
+#      - .:/code
   ofelia-scheduler:
     image: mcuadros/ofelia:latest
     command: daemon --docker
