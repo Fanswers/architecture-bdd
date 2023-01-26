@@ -27,14 +27,14 @@ def get_spotify_info(group_list, spotify):
     return group_list
 
 
-def get_artist_info(group_list):
+def set_artist_info(group_name):
     spotify = get_token()
+    today = date.today()
+    results = spotify.search(q='artist:' + group_name, type='artist')
+    group_list = {"_id": group_name}
+    items = results['artists']['items']
+    if len(items) > 0:
+        artist = items[0]
+        group_list["spotify_id"], group_list["followers"], group_list["popularity"] = artist["id"], {today.strftime("%d/%m/%Y"): int(artist["followers"]["total"])}, artist["popularity"]
 
-    for group in group_list:
-        results = spotify.search(q='artist:' + group, type='artist')
-        items = results['artists']['items']
-        if len(items) > 0:
-            artist = items[0]
-            group_list[group]["spotify_id"], group_list[group]["followers"], group_list[group]["popularity"] = artist["id"], {today.strftime("%d/%m/%Y"): int(artist["followers"]["total"])}, artist["popularity"]
-
-    print(group_list)
+    return group_list

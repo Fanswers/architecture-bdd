@@ -6,6 +6,7 @@ import plotly.graph_objects as go
 import seaborn as sns
 import matplotlib.pyplot as plt
 import datetime
+from src.spotify_api import set_artist_info
 
 st.set_page_config(page_title="Spotify top 50 / Concerts France", page_icon="🎼", layout="wide")
 
@@ -88,8 +89,10 @@ if artiste == "":
         artist_name = st.text_input(label="Nom de l'artiste:")
         submit_add = st.form_submit_button(label="Submit")
         if submit_add:
-            requests.post(f"{adresse_ip}", json={"_id": artist_name})
+            get_artist_spotify = set_artist_info(artist_name)
+            requests.post(f"{adresse_ip}", json=get_artist_spotify)
             st.experimental_rerun()
+            #requests.post(f"{adresse_ip}", json={"_id": artist_name})
     st.subheader("Supprimer un artiste")
     with st.form(key="form_delete"):
         artist_name = st.text_input(label="Nom de l'artiste:")
@@ -101,15 +104,11 @@ else:
     file_data_id = requests.get(f"{adresse_ip}{artiste}").json()
     i = 0
     for doc in file_data_id:
-        count_concerts = 0
         if "followers" in doc.keys():
             for elem in doc["followers"]:
                 file_data_id[i][elem] = file_data_id[i]["followers"][elem]
             del file_data_id[i]["followers"]
         if "concerts" in doc.keys():
-            for elem in doc["concerts"]:
-                count_concerts += 1
-            file_data_id[i]["count_concerts"] = count_concerts
             del file_data_id[i]["concerts"]
         i += 1
     st.markdown(f"<h1 style='text-align: center; color: black;'>{artiste}</h1>", unsafe_allow_html=True)
@@ -118,9 +117,9 @@ else:
         st.markdown(f"<h2 style='text-align: center; color: black;'>Evolution des followers de {artiste}</h2>", unsafe_allow_html=True)
         df = pd.json_normalize(file_data_id)
         if "spotify_id" in file_data_id[0].keys():
-            df_melted = pd.melt(df, id_vars=["_id", "spotify_id", "popularity", "count_concerts"], var_name="date", value_name="followers")
+            df_melted = pd.melt(df, id_vars=["_id", "spotify_id", "popularity"], var_name="date", value_name="followers")
         else:
-            df_melted = pd.melt(df, id_vars=["_id", "popularity", "count_concerts"], var_name="date",
+            df_melted = pd.melt(df, id_vars=["_id", "popularity"], var_name="date",
                                 value_name="followers")
 
         fig = plt.figure(figsize=(10, 4))
@@ -169,13 +168,13 @@ else:
         st.markdown(f"<h3 color: black;'>Concerts à venir</h3>", unsafe_allow_html=True)
         for elem in next_concert:
             st.write(elem)
+
+    # Modifier un artiste
     st.subheader("Modifier un artiste")
     with st.form(key="form_updaye"):
-        artist_name = st.text_input(label="Nom de l'artiste:")
-        new_artist_name = st.text_input(label="Nouveau nom de l'artiste:")
         artist_spotify_id = st.text_input(label="Spotify id:")
         popularity = st.number_input(label="Popularity:", min_value=0, max_value=100, value=0, step=1)
         submit_update = st.form_submit_button(label="Submit")
         if submit_update:
-            requests.put(f"{adresse_ip}", json={"_id": artist_name, "new_id": new_artist_name, "spotify_id": artist_spotify_id, "popularity": int(popularity)})
+            requests.put(f"{adresse_ip}", json={"_id": artiste, "new_id": "", "spotify_id": artist_spotify_id, "popularity": int(popularity)})
             st.experimental_rerun()
