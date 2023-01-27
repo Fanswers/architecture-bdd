@@ -27,11 +27,18 @@ API : http://127.0.0.1:5000/ <br>
 
 Si les liens ne fonctionnent pas, allez voir dans les logs de Docker sur les conteneurs associés pour récuperer l'ip de l'api et modifier votre ip dans la ligne 13 du streamlit.py
 
-Ouvrir un terminal à la racine du projet et executer les commandes suivantes:
+Ouvrir un terminal à la racine du projet et executer les commandes suivantes: 
+
+Sur windows :
 ````text 
 pip install -r ./docker/streamlit/requirements.txt
 streamlit run streamlit.py
 ````
+
+Sur Linux :
+
+[Documentation](https://docs.streamlit.io/library/get-started/installation)
+
 Récuperer le lien fournit pour se connecter au streamlit
 
 ## Conclusion
