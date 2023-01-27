@@ -1,4 +1,4 @@
-FROM python:3.11.1-bullseye
+FROM python:3.10.2-bullseye
 
 ENV VIRTUAL_ENV=/opt/.venv
 ENV PATH="$VIRTUAL_ENV/bin:$PATH"
@@ -6,6 +6,7 @@ ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 # Create virtual env
 RUN apt-get update \
     && apt-get install -y \
+    && pip install --upgrade pip \
     && python3 -m venv $VIRTUAL_ENV \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
@@ -15,9 +16,9 @@ EXPOSE 80
 
 # Install dependencies
 COPY docker/streamlit/requirements.txt .
+RUN pip wheel pandas
 RUN pip install -r requirements.txt
 
-ENV PYTHONUNBUFFERED 1
 
 # Run the application
 COPY . ./
