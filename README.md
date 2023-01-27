@@ -21,11 +21,11 @@ Sinon :
 docker-compose up -d
 ````
 
-Maintenant que tous les conteneurs ont été créés et lancés vous pouvez acceder aux streamlit et à l'API:
+Maintenant que tous les conteneurs ont été créés et lancés vous pouvez acceder aux et à l'API:
 
 API : http://127.0.0.1:5000/ <br>
 
-Si les liens ne fonctionnent pas, aller voir dans les logs de Docker sur les conteneurs associés pour récuperer l'ip de l'api et modifier votre ip dans la ligne 13 du streamlit.py
+Si les liens ne fonctionnent pas, allez voir dans les logs de Docker sur les conteneurs associés pour récuperer l'ip de l'api et modifier votre ip dans la ligne 13 du streamlit.py
 
 Ouvrir un terminal à la racine du projet et executer les commandes suivantes:
 ````text 
